@@ -1,0 +1,12 @@
+.full-width{
+	width :100%;
+}
+.container{
+	margin:15px;
+	width :90vw;
+	margin:15px auto;
+}
+
+.search{
+	margin-bottom:15px;
+}

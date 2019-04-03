@@ -1,28 +1,28 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+import SearchBar from './Component/Search/SearchBar';
+import UnspalshApi from './unsplash';
+import ImageGallery from './Component/Image/ImageList';
+
+class App extends React.Component {
+
+	state = { images: [] }
+
+	searchImage = async (searchText) => {
+		console.log(searchText);
+		const response = await UnspalshApi.get('/search/photos',
+			{ params: { query: searchText, per_page: 20  }}
+		);
+		this.setState({ images: response.data.results })
+	}
+	render() {
+		return (
+			<div className="container">
+				<SearchBar onSearch={this.searchImage} />
+				<ImageGallery images={this.state.images} />
+			</div>
+		);
+	}
 }
 
 export default App;
